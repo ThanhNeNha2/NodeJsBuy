@@ -6,7 +6,7 @@ const port = process.env.PORT || 8081;
 const viewEngine = require("./config/viewEngine");
 const webRoutes = require("./routes/web");
 viewEngine.configViewEngine(app);
-
+const connection = require("./config/database");
 // config req.body (  bắt buộc phải trước app.use("/", webRoutes);)
 app.use(express.json());
 app.use(
@@ -14,10 +14,15 @@ app.use(
     extended: true,
   })
 );
-
 app.use("/", webRoutes);
-const connection = require("./config/database");
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+(async () => {
+  try {
+    await connection();
+    app.listen(port, () => {
+      console.log(`Example app listening on port ${port}`);
+    });
+  } catch (error) {
+    console.log(" >>>ERROR connect to db ", error);
+  }
+})();
