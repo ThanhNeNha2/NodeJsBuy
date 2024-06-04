@@ -7,6 +7,7 @@ const viewEngine = require("./config/viewEngine");
 const webRoutes = require("./routes/web");
 viewEngine.configViewEngine(app);
 const connection = require("./config/database");
+const { default: mongoose } = require("mongoose");
 // config req.body (  bắt buộc phải trước app.use("/", webRoutes);)
 app.use(express.json());
 app.use(
@@ -15,7 +16,12 @@ app.use(
   })
 );
 app.use("/", webRoutes);
-
+const kittySchema = new mongoose.Schema({
+  name: String,
+});
+const Kitten = mongoose.model("Kitten", kittySchema);
+const silence = new Kitten({ name: "vo chi thanh " });
+silence.save();
 (async () => {
   try {
     await connection();
