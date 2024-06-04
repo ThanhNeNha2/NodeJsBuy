@@ -64,8 +64,6 @@
       <a href="/create">Create User</a>
     </div>
 
-    <%= results %>
-
     <h2>HTML Table</h2>
 
     <table>
@@ -74,7 +72,21 @@
         <th>Email</th>
         <th>Name</th>
         <th>City</th>
+        <th>Action</th>
       </tr>
+
+      <% for(let i = 0; i < listUses.length; i++) { %>
+      <tr>
+        <td><%= listUses[i].id %></td>
+        <td><%= listUses[i].email %></td>
+        <td><%= listUses[i].name %></td>
+        <td><%= listUses[i].city %></td>
+        <td>
+          <a href="/update/<%= listUses[i].id %>"> Update </a>
+          <a href="/delete/<%= listUses[i].id %>"> Delete </a>
+        </td>
+      </tr>
+      <% } %>
     </table>
   </body>
 </html>
