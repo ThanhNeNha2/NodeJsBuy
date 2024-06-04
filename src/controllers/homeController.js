@@ -1,8 +1,11 @@
 const connection = require("../config/database");
 const CURDService = require("../services/CRUDService");
+const User = require("../models/user");
 
 let getHome = async (req, res) => {
-  let results = await CURDService.getAllUser();
+  // let results = await CURDService.getAllUser() ;
+  let results = await User.find({});
+  console.log("check results user ", results);
   return res.render("home.ejs", { listUses: results });
 };
 let getCreatePage = (req, res) => {
@@ -10,13 +13,17 @@ let getCreatePage = (req, res) => {
 };
 let postHomepage = async (req, res) => {
   let { email, name, city } = req.body;
-  await CURDService.createUser(email, name, city);
+  // await CURDService.createUser(email, name, city);
+  await User.create({
+    email,
+    name,
+    city,
+  });
   return res.send("Create user success!");
 };
 let getUpdatePage = async (req, res) => {
   let id = req.params.id;
   let user = await CURDService.getUserupdate(id);
-
   return res.render("edit.ejs", { userEdit: user });
 };
 let postUpdateUser = async (req, res) => {
