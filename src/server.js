@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.PORT || 8081;
 const viewEngine = require("./config/viewEngine");
 const webRoutes = require("./routes/web");
+const apiRouter = require("./routes/api");
 viewEngine.configViewEngine(app);
 const connection = require("./config/database");
 
@@ -16,7 +17,7 @@ app.use(
   })
 );
 app.use("/", webRoutes);
-
+app.use("/v1/api/", apiRouter);
 (async () => {
   try {
     await connection();
