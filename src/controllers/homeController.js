@@ -46,14 +46,15 @@ let postUpdateUser = async (req, res) => {
 };
 let getDeletePage = async (req, res) => {
   let id = req.params.id;
-  let user = await CURDService.getUserupdate(id);
-
+  // let user = await CURDService.getUserupdate(id);
+  let user = await User.findById(id).exec();
   return res.render("delete.ejs", { userEdit: user });
 };
 
 let postDeleteUser = async (req, res) => {
   let id = req.body.id;
-  await CURDService.DeleteUser(id);
+  // await CURDService.remove({ _id: req.body.id })
+  await User.deleteOne({ _id: id });
   return res.redirect("/");
 };
 module.exports = {
