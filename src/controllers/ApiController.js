@@ -14,6 +14,7 @@ let getUsersApi = async (req, res) => {
     data: results,
   });
 };
+
 let postUsersApi = async (req, res) => {
   let { email, name, city } = req.body;
   // let results = await CURDService.getAllUser() ;
