@@ -6,8 +6,14 @@ const port = process.env.PORT || 8081;
 const viewEngine = require("./config/viewEngine");
 const webRoutes = require("./routes/web");
 const apiRouter = require("./routes/api");
-viewEngine.configViewEngine(app);
 const connection = require("./config/database");
+viewEngine.configViewEngine(app);
+
+// file
+const fileUpload = require("express-fileupload");
+
+// config file
+app.use(fileUpload());
 
 // config req.body (  bắt buộc phải trước app.use("/", webRoutes);)
 app.use(express.json());

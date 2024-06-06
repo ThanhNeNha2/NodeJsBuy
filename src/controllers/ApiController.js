@@ -1,5 +1,10 @@
 const User = require("../models/user");
 
+const {
+  uploadSingleFile,
+  uploadMultipleFile,
+} = require("../services/fileService");
+
 let getUsersApi = async (req, res) => {
   // let results = await CURDService.getAllUser() ;
   let results = await User.find({});
@@ -52,9 +57,39 @@ let deleteUsersApi = async (req, res) => {
     data: results,
   });
 };
+
+let postUploadSingleFileApi = async (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send("No files were uploaded.");
+  }
+  let results = await uploadSingleFile(req.files.image);
+  console.log("checkkk results ", results);
+
+  return res.status(200).json({
+    data: results,
+  });
+};
+
+let postUploadMultipleFileApi = async (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send("No files were uploaded.");
+  }
+  if (Array.isArray(req.files.image)) {
+    let results = await uploadMultipleFile(req.files.image);
+    console.log("checkkk results ", results);
+
+    return res.status(200).json({
+      data: results,
+    });
+  } else {
+    return await postUploadSingleFileApi(req, res);
+  }
+};
 module.exports = {
   getUsersApi,
   postUsersApi,
   updateUsersApi,
   deleteUsersApi,
+  postUploadSingleFileApi,
+  postUploadMultipleFileApi,
 };
