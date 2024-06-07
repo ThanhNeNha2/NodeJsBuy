@@ -1,6 +1,9 @@
 const { uploadSingleFile } = require("../services/fileService");
-const { createCustomerService } = require("../services/customerService");
-let postCreateUsersApi = async (req, res) => {
+const {
+  createCustomerService,
+  createArrCustomerService,
+} = require("../services/customerService");
+let postCreateCustomer = async (req, res) => {
   let { name, address, phone, email, description } = req.body;
 
   let imageUrl = "";
@@ -24,5 +27,18 @@ let postCreateUsersApi = async (req, res) => {
     data: customer,
   });
 };
-
-module.exports = { postCreateUsersApi };
+let postCreateArrCustomer = async (req, res) => {
+  let result = await createArrCustomerService(req.body.customers);
+  if (result) {
+    return res.status(200).json({
+      errCode: 0,
+      data: result,
+    });
+  } else {
+    return res.status(200).json({
+      errCode: -1,
+      data: result,
+    });
+  }
+};
+module.exports = { postCreateCustomer, postCreateArrCustomer };

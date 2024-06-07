@@ -14,12 +14,16 @@ routerAPI.post("/users", postUsersApi);
 routerAPI.put("/users", updateUsersApi);
 routerAPI.delete("/users", deleteUsersApi);
 
-const { postCreateUsersApi } = require("../controllers/customerController");
+const {
+  postCreateCustomer,
+  postCreateArrCustomer,
+} = require("../controllers/customerController");
 // File
 routerAPI.post("/file", postUploadSingleFileApi);
 routerAPI.post("/files", postUploadMultipleFileApi);
 
 // Customer
-routerAPI.post("/customers", postCreateUsersApi);
+routerAPI.post("/customers", postCreateCustomer);
+routerAPI.post("/customers-many", postCreateArrCustomer);
 
 module.exports = routerAPI;
