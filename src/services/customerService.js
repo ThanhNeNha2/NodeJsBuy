@@ -25,9 +25,15 @@ const createArrCustomerService = async (arr) => {
     return null;
   }
 };
-let getAllCustomers = async () => {
+let getAllCustomers = async (limit, page) => {
   try {
-    let result = await Customer.find({});
+    let result = null;
+    if (limit && page) {
+      let skip = (page - 1) * limit;
+      result = await Customer.find({}).limit(limit).skip(skip).exec();
+    } else {
+      result = await Customer.find({});
+    }
     return result;
   } catch (error) {
     console.log("ERROR", error);
@@ -57,8 +63,6 @@ let deleteCustomer = async (id) => {
   }
 };
 let deleteMultipleCustomer = async (listId) => {
-  console.log(" kiem tra dieu kien truyen qua ", listId);
-
   try {
     let result = await Customer.delete({ _id: { $in: listId } });
     return result;
