@@ -32,7 +32,7 @@ let postCreateCustomer = async (req, res) => {
   });
 };
 let postCreateArrCustomer = async (req, res) => {
-  let result = await createArrCustomerService(req.body);
+  let result = await createArrCustomerService(req.body.customers);
 
   if (result) {
     return res.status(200).json({
@@ -49,9 +49,11 @@ let postCreateArrCustomer = async (req, res) => {
 let getAllCustomer = async (req, res) => {
   let limit = req.query.limit;
   let page = req.query.page;
+  let name = req.query.name;
+
   let result = null;
   if (limit && page) {
-    result = await getAllCustomers(limit, page);
+    result = await getAllCustomers(limit, page, name);
   } else {
     result = await getAllCustomers();
   }

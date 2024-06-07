@@ -35,6 +35,8 @@ routerAPI.put("/customers", putUpdateCustomer);
 routerAPI.delete("/customers", deleteACustomer);
 routerAPI.delete("/customers-many", deleteManyCustomer);
 
+// filter
+
 // req.query
 routerAPI.get("/info", (req, res) => {
   return res.status(200).json({
