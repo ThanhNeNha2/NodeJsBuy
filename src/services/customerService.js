@@ -25,7 +25,53 @@ const createArrCustomerService = async (arr) => {
     return null;
   }
 };
+let getAllCustomers = async () => {
+  try {
+    let result = await Customer.find({});
+    return result;
+  } catch (error) {
+    console.log("ERROR", error);
+    return null;
+  }
+};
+let putUpdateCustomers = async (data) => {
+  console.log("check data truyen ", data);
+  try {
+    let result = await Customer.updateOne(
+      { _id: data.id },
+      { name: data.name, email: data.email, address: data.address }
+    );
+    return result;
+  } catch (error) {
+    console.log("ERROR", error);
+    return null;
+  }
+};
+let deleteCustomer = async (id) => {
+  try {
+    let result = await Customer.deleteById({ _id: id });
+    return result;
+  } catch (error) {
+    console.log("ERROR", error);
+    return null;
+  }
+};
+let deleteMultipleCustomer = async (listId) => {
+  console.log(" kiem tra dieu kien truyen qua ", listId);
+
+  try {
+    let result = await Customer.delete({ _id: { $in: listId } });
+    return result;
+  } catch (error) {
+    console.log("ERROR", error);
+    return null;
+  }
+};
 module.exports = {
   createCustomerService,
   createArrCustomerService,
+  getAllCustomers,
+  putUpdateCustomers,
+  deleteCustomer,
+  deleteMultipleCustomer,
 };
