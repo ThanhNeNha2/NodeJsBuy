@@ -1,4 +1,5 @@
 const { uploadSingleFile } = require("../services/fileService");
+const aqp = require("api-query-params");
 const {
   createCustomerService,
   createArrCustomerService,
@@ -47,13 +48,14 @@ let postCreateArrCustomer = async (req, res) => {
   }
 };
 let getAllCustomer = async (req, res) => {
-  let limit = req.query.limit;
-  let page = req.query.page;
-  let name = req.query.name;
+  // let limit = req.query.limit;
+  // let page = req.query.page;
+  // let name = req.query.name;
+  const query = aqp(req.query);
 
   let result = null;
-  if (limit && page) {
-    result = await getAllCustomers(limit, page, name);
+  if (query) {
+    result = await getAllCustomers(query);
   } else {
     result = await getAllCustomers();
   }

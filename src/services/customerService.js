@@ -25,21 +25,15 @@ const createArrCustomerService = async (arr) => {
     return null;
   }
 };
-let getAllCustomers = async (limit, page, name) => {
+let getAllCustomers = async (query) => {
   try {
     let result = null;
-    if (limit && page) {
-      let skip = (page - 1) * limit;
-      if (name) {
-        result = await Customer.find({
-          name: { $regex: ".*" + name + ".*" },
-        })
-          .limit(limit)
-          .skip(skip)
-          .exec();
-      } else {
-        result = await Customer.find({}).limit(limit).skip(skip).exec();
-      }
+    if (query) {
+      let { skip, limit, filter } = query;
+      // ***** trong trường hợp không biết dùng / / của thư viện
+      // filter["name"] = { $regex: ".*" + filter.name + ".*" };
+      let numberSkip = (skip - 1) * limit;
+      result = await Customer.find(filter).limit(limit).skip(numberSkip).exec();
     } else {
       result = await Customer.find({});
     }
