@@ -13,6 +13,9 @@ routerAPI.get("/users", getUsersApi);
 routerAPI.post("/users", postUsersApi);
 routerAPI.put("/users", updateUsersApi);
 routerAPI.delete("/users", deleteUsersApi);
+// File
+routerAPI.post("/file", postUploadSingleFileApi);
+routerAPI.post("/files", postUploadMultipleFileApi);
 
 // ******** CUSTOMER ********
 const {
@@ -23,11 +26,7 @@ const {
   deleteACustomer,
   deleteManyCustomer,
 } = require("../controllers/customerController");
-// File
-routerAPI.post("/file", postUploadSingleFileApi);
-routerAPI.post("/files", postUploadMultipleFileApi);
 
-// Customer
 routerAPI.get("/customers", getAllCustomer);
 routerAPI.post("/customers", postCreateCustomer);
 routerAPI.post("/customers-many", postCreateArrCustomer);
@@ -35,7 +34,11 @@ routerAPI.put("/customers", putUpdateCustomer);
 routerAPI.delete("/customers", deleteACustomer);
 routerAPI.delete("/customers-many", deleteManyCustomer);
 
-// filter
+// ******** PROJECT ********
+
+const { postCreateProject } = require("../controllers/projectController");
+
+routerAPI.post("/projects", postCreateProject);
 
 // req.query
 routerAPI.get("/info", (req, res) => {
