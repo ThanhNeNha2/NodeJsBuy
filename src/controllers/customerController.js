@@ -8,9 +8,18 @@ const {
   deleteCustomer,
   deleteMultipleCustomer,
 } = require("../services/customerService");
+
 let postCreateCustomer = async (req, res) => {
   let { name, address, phone, email, description } = req.body;
-
+  const Joi = require("joi");
+  const schema = Joi.object({
+    name: Joi.string().alphanum().min(3).max(30).required(),
+    address: Joi.string(),
+    phone: Joi.string().pattern(new RegExp("^[0-9]{8,11}$")),
+    email: Joi.string().email(),
+    description: Joi.string(),
+  });
+  schema.validate(req.body);
   let imageUrl = "";
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send("No files were uploaded.");

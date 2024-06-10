@@ -36,9 +36,31 @@ routerAPI.delete("/customers-many", deleteManyCustomer);
 
 // ******** PROJECT ********
 
-const { postCreateProject } = require("../controllers/projectController");
+const {
+  postCreateProject,
+  getAllProject,
+  putUpdateProject,
+  deleteAProject,
+} = require("../controllers/projectController");
 
-routerAPI.post("/projects", postCreateProject);
+routerAPI.post("/project", postCreateProject);
+routerAPI.get("/project", getAllProject);
+routerAPI.put("/project", putUpdateProject);
+routerAPI.delete("/project", deleteAProject);
+
+// ******** TASK  ********
+
+const {
+  postCreateTask,
+  getAllTask,
+  putUpdateTask,
+  deleteATask,
+} = require("../controllers/taskController");
+
+routerAPI.post("/task", postCreateTask);
+routerAPI.get("/task", getAllTask);
+routerAPI.put("/task", putUpdateTask);
+routerAPI.delete("/task", deleteATask);
 
 // req.query
 routerAPI.get("/info", (req, res) => {

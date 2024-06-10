@@ -31,7 +31,7 @@ const taskSchema = new mongoose.Schema(
     timestamps: true, // createdAt, updatedAt
   }
 );
-taskSchema.plugin(mongoose_delete, { overrideMethods: true });
-const Task = mongoose.model("Task", taskSchema);
+taskSchema.plugin(mongoose_delete, { overrideMethods: "all" });
+const Task = mongoose.model("task", taskSchema);
 
 module.exports = Task;
